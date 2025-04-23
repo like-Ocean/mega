@@ -4,72 +4,73 @@ import { registerBpmnShapes } from './registerBpmnShapes';
 import { BpmnDiagram as BpmnDiagramType } from '@/types/bpmn';
 
 interface BpmnDiagramProps {
-  data: BpmnDiagramType | null;
+    data: BpmnDiagramType | null;
 }
 
+// TODO: Сделать так чтобы текст или не обрезался или при наведении показывался полный, добавить 
+// возможность масштабировать холст
 export const BpmnDiagram = ({ data }: BpmnDiagramProps) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const graphRef = useRef<Graph | null>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const graphRef = useRef<Graph | null>(null);
 
-  useEffect(() => {
-    if (!containerRef.current) return;
+    useEffect(() => {
+        if (!containerRef.current) return;
 
-    registerBpmnShapes();
-    
-    graphRef.current = new Graph({
-      container: containerRef.current,
-      grid: true,
-      panning: true,
-      background: { color: '#f5f5f5' },
-    });
+        registerBpmnShapes();
 
-    return () => graphRef.current?.dispose();
-  }, []);
+        graphRef.current = new Graph({
+            container: containerRef.current,
+            grid: true,
+            panning: true,
+            background: { color: '#f5f5f5' },
+        });
 
-  useEffect(() => {
-    if (!graphRef.current || !data) return;
+        return () => graphRef.current?.dispose();
+    }, []);
 
-    graphRef.current.clearCells();
+    useEffect(() => {
+        if (!graphRef.current || !data) return;
 
-    data.nodes.forEach((node) => {
-      graphRef.current?.addNode({
-        id: node.id,
-        shape: node.type,
-        x: node.position.x,
-        y: node.position.y,
-        width: node.width,
-        height: node.height,
-        label: node.label,
-        attrs: {
-          label: {
-            text: node.label,
-            fontSize: 12,
-          },
-        },
-      });
-    });
+        graphRef.current.clearCells();
 
-    data.edges.forEach((edge) => {
-      graphRef.current?.addEdge({
-        id: edge.id,
-        shape: 'bpmn-edge',
-        source: edge.source,
-        target: edge.target,
-      });
-    });
+        data.nodes.forEach((node) => {
+            graphRef.current?.addNode({
+                id: node.id,
+                shape: node.type,
+                x: node.position.x,
+                y: node.position.y,
+                width: node.width,
+                height: node.height,
+                label: node.label,
+                attrs: {
+                    label: {
+                        text: node.label,
+                        fontSize: 12,
+                    },
+                },
+            });
+        });
 
-    graphRef.current.zoomToFit({ padding: 20 });
+        data.edges.forEach((edge) => {
+            graphRef.current?.addEdge({
+                id: edge.id,
+                shape: 'bpmn-edge',
+                source: edge.source,
+                target: edge.target,
+            });
+        });
 
-  }, [data]);
+        graphRef.current.zoomToFit({ padding: 20 });
+    }, [data]);
 
-  return (
-    <div 
-      ref={containerRef} 
-      style={{ 
-        width: '100%', 
-        height: '600px', 
-        border: '1px solid #ddd' 
-      }} 
-    />
-  );
+    return (
+        <div
+            ref={containerRef}
+            style={{
+                width: '100%',
+                height: '600px',
+                border: '1px solid #ddd',
+            }}
+        />
+    );
 };
