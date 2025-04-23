@@ -1,0 +1,1 @@
+export { BpmnDiagram } from './BpmnDiagram';

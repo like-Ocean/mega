@@ -9,7 +9,7 @@ export const registerBpmnShapes = () => {
       body: {
         stroke: '#000000',
         strokeWidth: 2,
-        fill: '#ffffff',
+        fill: '#474646',
       },
     },
   });
@@ -22,7 +22,7 @@ export const registerBpmnShapes = () => {
       body: {
         stroke: '#000000',
         strokeWidth: 2,
-        fill: '#ffffff',
+        fill: '#555555',
         rx: 5,
         ry: 5,
       },
@@ -37,7 +37,7 @@ export const registerBpmnShapes = () => {
       body: {
         stroke: '#000000',
         strokeWidth: 2,
-        fill: '#ffffff',
+        fill: '#5a5a5a',
         refPoints: '0,10 10,0 20,10 10,20',
       },
     },
