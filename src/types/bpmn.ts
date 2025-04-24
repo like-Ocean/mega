@@ -9,7 +9,22 @@ export type BpmnNode = {
     label?: string;
     width: number;
     height: number;
-    attrs?: Node.Metadata['attrs']; // Для кастомизации через X6
+    attrs?: Node.Metadata['attrs'];
+};
+
+export type BpmnEdgeLabel = {
+    position?: number;
+    attrs?: {
+        labelText?: {
+            text?: string;
+            fontSize?: number;
+            fill?: string;
+        };
+        labelBg?: {
+            fill?: string;
+            stroke?: string;
+        };
+    };
 };
 
 export type BpmnEdge = {
@@ -17,7 +32,8 @@ export type BpmnEdge = {
     type: 'bpmn-edge';
     source: string;
     target: string;
-    attrs?: Node.Metadata['attrs']; // Добавить и для edges
+    labels?: (string | BpmnEdgeLabel)[];
+    attrs?: Node.Metadata['attrs'];
 };
 
 export type BpmnDiagram = {

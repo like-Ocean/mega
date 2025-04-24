@@ -1,6 +1,5 @@
 import { Graph } from '@antv/x6';
 
-// TODO: Вот тут если что выключить ellipsis
 export const registerBpmnShapes = () => {
     // Event (Круг)
     Graph.registerNode('event', {
@@ -12,18 +11,8 @@ export const registerBpmnShapes = () => {
                 fill: '#FF6B6B',
                 stroke: '#CC4949',
                 strokeWidth: 2,
-                fillOpacity: 0.7,
-                strokeOpacity: 0.8,
             },
             label: {
-                text: 'Event',
-                fill: '#4a4a4a',
-                fontSize: 12,
-                textWrap: {
-                    width: 40,
-                    height: 40,
-                    ellipsis: true,
-                },
                 textVerticalAnchor: 'middle',
                 textAnchor: 'middle',
             },
@@ -42,18 +31,8 @@ export const registerBpmnShapes = () => {
                 strokeWidth: 2,
                 rx: 5,
                 ry: 5,
-                fillOpacity: 0.7,
-                strokeOpacity: 0.8,
             },
             label: {
-                text: 'Activity',
-                fill: '#333333',
-                fontSize: 14,
-                textWrap: {
-                    width: 100,
-                    height: 60,
-                    ellipsis: true,
-                },
                 textVerticalAnchor: 'middle',
                 textAnchor: 'middle',
             },
@@ -71,18 +50,8 @@ export const registerBpmnShapes = () => {
                 stroke: '#CCB22E',
                 strokeWidth: 2,
                 refPoints: '0,10 10,0 20,10 10,20',
-                fillOpacity: 0.7,
-                strokeOpacity: 0.8,
             },
             label: {
-                text: 'Gateway',
-                fill: '#333333',
-                fontSize: 12,
-                textWrap: {
-                    width: 50,
-                    height: 50,
-                    ellipsis: true,
-                },
                 textVerticalAnchor: 'middle',
                 textAnchor: 'middle',
             },
@@ -92,11 +61,41 @@ export const registerBpmnShapes = () => {
     // Связи
     Graph.registerEdge('bpmn-edge', {
         inherit: 'edge',
+        defaultLabel: {
+            markup: [
+                {
+                    tagName: 'rect',
+                    selector: 'labelBg',
+                },
+                {
+                    tagName: 'text',
+                    selector: 'labelText',
+                },
+            ],
+            attrs: {
+                labelText: {
+                    fontSize: 12,
+                    fill: '#333',
+                    textAnchor: 'middle',
+                    textVerticalAnchor: 'middle',
+                },
+                labelBg: {
+                    ref: 'labelText',
+                    fill: '#fff',
+                    rx: 3,
+                    ry: 3,
+                    padding: 5,
+                    refWidth: '140%',
+                    refHeight: '140%',
+                    refX: '-20%',
+                    refY: '-20%',
+                },
+            },
+        },
         attrs: {
             line: {
-                stroke: '#666666',
+                stroke: '#666',
                 strokeWidth: 2,
-                strokeOpacity: 0.7,
                 targetMarker: {
                     name: 'block',
                     width: 12,
